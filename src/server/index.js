@@ -14,16 +14,24 @@ app.use("/", express.static(path.join(__dirname, "../public")));
 
 // your API calls
 app.get("/rover", async (req, res) => {
+	let rover = req.query.sRover;
+	let date = req.query.date;
+	rover.toLocaleLowerCase();
+	try {
+		let data = await fetch(
+			`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${process.env.API_KEY}`
+		).then((res) => res.json());
+		res.send(data);
+	} catch (err) {
+		console.log("error:", err);
+	}
+});
+//calling missons manifest to get max sol
+app.get("/manifest", async (req, res) => {
 	let selectedRover = req.query.sRover;
 	try {
 		let data = await fetch(
-			`https://api.nasa.gov/mars-photos/api/v1/rovers/${selectedRover}/photos?earth_date=2015-6-3&api_key=${process.env.API_KEY}`,
-			{
-				headers: {
-					"Content-Type": "application/json",
-					Accept: "application/json",
-				},
-			}
+			`https://api.nasa.gov/mars-photos/api/v1/manifests/${selectedRover}?api_key=${process.env.API_KEY}`
 		).then((res) => res.json());
 		res.send(data);
 	} catch (err) {

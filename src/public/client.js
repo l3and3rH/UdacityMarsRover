@@ -72,13 +72,17 @@ const Greeting = (name) => {
 
 // Example of a pure function that renders infomation requested from the backend
 const roverImageFunc = (rover) => {
-	// If image does not already exist, or it is not from today -- request it again
-	/*const today = new Date();
-	const photodate = new Date(roverImage.date);
+	// https://stackoverflow.com/questions/3552461/how-to-format-a-javascript-date
+	const o_date = new Intl.DateTimeFormat();
+	const f_date = (m_ca, m_it) => Object({ ...m_ca, [m_it.type]: m_it.value });
+	const m_date = o_date.formatToParts().reduce(f_date, {});
+	const today = m_date.year + "-" + m_date.month + "-" + m_date.day;
+	console.log(today);
+	/*const photodate = new Date(roverImage.date);
 	console.log(photodate.getDate(), today.getDate());
-
-	console.log(photodate.getDate() === today.getDate());*/
-	getImageOfRovers(rover);
+    
+    console.log(photodate.getDate() === today.getDate());*/
+	getRoverManifest(rover);
 
 	// check if the photo of the day is actually type video!
 	return console.log(store);
@@ -112,13 +116,27 @@ const roverImageFunc = (rover) => {
 // ------------------------------------------------------  API CALLS
 
 // Example API call
-const getImageOfRovers = (selectedRover) => {
-	fetch(`http://localhost:3000/rover?sRover=${selectedRover}`)
+const getImageOfRovers = (selectedRover, date) => {
+	console.log(date);
+	console.log(selectedRover);
+	fetch(`http://localhost:3000/rover?sRover=${selectedRover}&date=${date}`)
 		.then((res) => res.json())
 		.then((res) => console.log(res));
 	// .then((data) => updateStore(store, { data }));
 };
 
+const getRoverManifest = (selectedRover) => {
+	fetch(`http://localhost:3000/manifest?sRover=${selectedRover}`)
+		.then((res) => res.json())
+		.then((res) => {
+			console.log(res);
+			return res;
+		})
+		.then((res) =>
+			getImageOfRovers(res.photo_manifest.name, res.photo_manifest.max_date)
+		);
+	// .then((data) => updateStore(store, { data }));
+};
 /*
 const getImageOfTheDay = (state) => {
 	let { apod } = state;
