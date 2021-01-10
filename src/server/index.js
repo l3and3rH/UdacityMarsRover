@@ -26,7 +26,7 @@ app.get("/rover", async (req, res) => {
 		console.log("error:", err);
 	}
 });
-//calling missons manifest to get max sol
+//calling missons manifest to get max earth_date for each rover & mission infos
 app.get("/manifest", async (req, res) => {
 	let selectedRover = req.query.sRover;
 	try {
@@ -34,17 +34,6 @@ app.get("/manifest", async (req, res) => {
 			`https://api.nasa.gov/mars-photos/api/v1/manifests/${selectedRover}?api_key=${process.env.API_KEY}`
 		).then((res) => res.json());
 		res.send(data);
-	} catch (err) {
-		console.log("error:", err);
-	}
-});
-// example API call
-app.get("/apod", async (req, res) => {
-	try {
-		let image = await fetch(
-			`https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}`
-		).then((res) => res.json());
-		res.send({ image });
 	} catch (err) {
 		console.log("error:", err);
 	}
