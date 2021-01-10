@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 app.use("/", express.static(path.join(__dirname, "../public")));
 
-// your API calls
+// getting latest images of selected Rover
 app.get("/rover", async (req, res) => {
 	let rover = req.query.sRover;
 	let date = req.query.date;

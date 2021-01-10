@@ -21,8 +21,22 @@ ol,
 ul,
 li {
 	margin: 0;
-	padding: 0;
+	padding: 5px;
 	font-weight: normal;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+	text-align: center;
+	margin: 5px 0px;
+}
+
+p {
+	padding: 30px;
 }
 
 ol,
@@ -31,9 +45,10 @@ ul {
 }
 
 img {
+	max-height: 250px;
+	min-height: 250px;
 	max-width: 100%;
 	height: auto;
-	margin-top: 8px;
+	margin: 10px 8px;
 	vertical-align: middle;
-	max-height: 350px;
 }

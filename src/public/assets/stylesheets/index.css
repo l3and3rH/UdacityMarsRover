@@ -1,38 +1,61 @@
 /* -------------------  MOBILE  --------------------- */
 
 body {
-  display: flex;
-  flex-direction: column;
-  font-family: Arial;
-  min-height: 100vh;
-}
-
-header {
-  /* header styles */
+	display: flex;
+	flex-direction: column;
+	font-family: Arial;
+	min-height: 100vh;
 }
 
 main {
-  flex: 1;
-  padding: 20px;
+	flex: 1;
+	padding: 20px;
 }
 
-footer {
-  /* footer styles */
+/*standard btn-group partly from https://www.w3schools.com/howto/howto_css_button_group.asp*/
+.btn-group {
+	margin-bottom: 30px;
+}
+.btn-group button {
+	background-color: #0242aac8;
+	border: 1px solid rgb(131, 209, 255);
+	color: white;
+	padding: 10px 24px;
+	cursor: pointer;
+	float: left;
+	min-width: 33%;
+	justify-content: center;
 }
 
+.btn-group button:not(:last-child) {
+	border-right: none;
+}
+
+.btn-group:after {
+	content: "";
+	clear: both;
+	display: table;
+}
+
+.btn-group button:hover {
+	background-color: rgb(131, 209, 255);
+}
 /* -------------------  TABLET  --------------------- */
-@media (min-width: 768px) {
-  /* use mobile */
+@media (max-width: 768px) {
+	.btn-group button {
+		min-width: 100%;
+		font-size: smaller;
+	}
 }
 
 /* -------------------  DESKTOP  -------------------- */
 
 @media (min-width: 1224px) {
-  /* use mobile */
+	/* use mobile */
 }
 
 /* -------------------  LARGE SCREENS  -------------- */
 
 @media (min-width: 1824px) {
-  /* use mobile */
+	/* use mobile */
 }
