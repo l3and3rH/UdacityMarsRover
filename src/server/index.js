@@ -14,12 +14,11 @@ app.use("/", express.static(path.join(__dirname, "../public")));
 
 // getting latest images of selected Rover
 app.get("/rover", async (req, res) => {
-	let rover = req.query.sRover;
-	let date = req.query.date;
+	const rover = req.query.sRover;
 	rover.toLocaleLowerCase();
 	try {
-		let data = await fetch(
-			`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/photos?earth_date=${date}&api_key=${process.env.API_KEY}`
+		const data = await fetch(
+			`https://api.nasa.gov/mars-photos/api/v1/rovers/${rover}/latest_photos?api_key=${process.env.API_KEY}`
 		).then((res) => res.json());
 		res.send(data);
 	} catch (err) {
@@ -28,9 +27,9 @@ app.get("/rover", async (req, res) => {
 });
 //calling missons manifest to get max earth_date for each rover & mission infos
 app.get("/manifest", async (req, res) => {
-	let selectedRover = req.query.sRover;
+	const selectedRover = req.query.sRover;
 	try {
-		let data = await fetch(
+		const data = await fetch(
 			`https://api.nasa.gov/mars-photos/api/v1/manifests/${selectedRover}?api_key=${process.env.API_KEY}`
 		).then((res) => res.json());
 		res.send(data);
